@@ -180,52 +180,84 @@ function gerarPassosBFS(inicio, objetivo, passos) {
 }
 
 function gerarPassosDFS(inicio, objetivo, passos) {
-    const pilha = [[inicio]];
-    const visitados = new Set([inicio]);
-    
-    while (pilha.length > 0) {
-        const caminho = pilha[0];
-        const no = caminho[caminho.length - 1];
-        
+    const visitados = new Set();
+    const caminho = [];
+    let melhorCaminho = null;
+
+    function dfs(no) {
+        visitados.add(no);
+        caminho.push(no);
+
         // Passo: visitar o nó
-        passos.push({ 
-            type: "visit", 
+        passos.push({
+            type: "visit",
             node: no,
             path: [...caminho],
-            frontier: [...pilha].map(p => p[p.length - 1])
+            frontier: [...visitados]
         });
-        
+
         if (no === objetivo) {
-            passos.push({ type: "found", path: caminho });
-            break;
-        }
-        
-        pilha.shift();
-        
-        const vizinhos = obterVizinhos(no);
-        for (let i = vizinhos.length - 1; i >= 0; i--) {
-            const vizinho = vizinhos[i];
-            if (!visitados.has(vizinho)) {
-                // Passo: explorar aresta
-                passos.push({
-                    type: "explore-edge",
-                    from: no,
-                    to: vizinho,
-                    frontier: [...pilha].map(p => p[p.length - 1])
-                });
+            // Atualiza o melhor caminho se encontrar um mais curto
+            if (!melhorCaminho || caminho.length < melhorCaminho.length) {
+                melhorCaminho = [...caminho];
                 
-                visitados.add(vizinho);
-                const novoCaminho = [...caminho, vizinho];
-                pilha.unshift(novoCaminho);
-                
-                // Passo: adicionar à fronteira
-                passos.push({
-                    type: "add-frontier",
-                    node: vizinho,
-                    frontier: [...pilha].map(p => p[p.length - 1])
-                });
+                // Adiciona passo "found" temporário (será atualizado se encontrar um caminho melhor depois)
+                const foundStepIndex = passos.findIndex(step => step.type === "found-temp");
+                if (foundStepIndex >= 0) {
+                    passos[foundStepIndex] = { 
+                        type: "found-temp", 
+                        path: [...melhorCaminho] 
+                    };
+                } else {
+                    passos.push({ 
+                        type: "found-temp", 
+                        path: [...melhorCaminho] 
+                    });
+                }
+            }
+        } else {
+            // Explora vizinhos em ordem (a menos que queira priorizar algum)
+            for (const vizinho of obterVizinhos(no)) {
+                if (!visitados.has(vizinho)) {
+                    // Passo: explorar aresta
+                    passos.push({
+                        type: "explore-edge",
+                        from: no,
+                        to: vizinho,
+                        frontier: [...visitados]
+                    });
+
+                    dfs(vizinho);
+                }
             }
         }
+
+        // Backtrack
+        caminho.pop();
+        visitados.delete(no);
+    }
+
+    // Passo inicial
+    passos.push({
+        type: "initialize",
+        node: inicio,
+        frontier: [inicio]
+    });
+
+    dfs(inicio);
+
+    // Substitui o passo "found-temp" pelo definitivo no final
+    const tempIndex = passos.findIndex(step => step.type === "found-temp");
+    if (tempIndex >= 0 && melhorCaminho) {
+        passos[tempIndex] = { 
+            type: "found", 
+            path: [...melhorCaminho] 
+        };
+    } else {
+        passos.push({
+            type: "not-found",
+            message: "Caminho não encontrado"
+        });
     }
 }
 
@@ -535,8 +567,16 @@ function executarPasso(passo) {
                 <p><strong>Comprimento:</strong> ${passo.path.length - 1}</p>
             `;
             return;
+                
+        case "not-found":
+            clearInterval(animationInterval);
+            resultDiv.innerHTML = `
+                <h3>Caminho Não Encontrado</h3>
+                <p>${passo.message}</p>
+            `;
+            return;
     }
-    
+        
     drawGraph();
 }
 

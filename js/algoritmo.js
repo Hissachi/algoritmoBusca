@@ -23,25 +23,34 @@ function buscaEmLargura(inicio, objetivo) {
 
 // Algoritmo de Busca em Profundidade
 function buscaEmProfundidade(inicio, objetivo) {
-    const pilha = [[inicio]];
-    const visitados = new Set([inicio]);
-    
-    while (pilha.length > 0) {
-        const caminho = pilha.pop();
-        const no = caminho[caminho.length - 1];
-        
+    let melhorCaminho = null;
+    const visitados = new Set();
+
+    function dfs(no, caminhoAtual) {
+        visitados.add(no);
+        caminhoAtual.push(no);
+
+        // Se encontrou o objetivo, verifica se é o caminho mais curto
         if (no === objetivo) {
-            return caminho;
-        }
-        
-        for (const vizinho of obterVizinhos(no)) {
-            if (!visitados.has(vizinho)) {
-                visitados.add(vizinho);
-                pilha.push([...caminho, vizinho]);
+            if (!melhorCaminho || caminhoAtual.length < melhorCaminho.length) {
+                melhorCaminho = [...caminhoAtual]; // Atualiza o melhor caminho
+            }
+        } else {
+            // Explora vizinhos em ordem aleatória (depende da implementação de obterVizinhos)
+            for (const vizinho of obterVizinhos(no)) {
+                if (!visitados.has(vizinho)) {
+                    dfs(vizinho, caminhoAtual);
+                }
             }
         }
+
+        // Backtrack: remove o nó do caminho e dos visitados
+        caminhoAtual.pop();
+        visitados.delete(no);
     }
-    return null;
+
+    dfs(inicio, []);
+    return melhorCaminho;
 }
 
 // Busca em Profundidade Limitada
