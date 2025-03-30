@@ -3,594 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizador de Buscas em Grafos</title>
-    <style>
-        :root {
-            --bg-color: #f5f5f5;
-            --container-bg: white;
-            --text-color: #333;
-            --controls-bg: #f0f0f0;
-            --result-bg: #e9f7ef;
-            --result-border: #4CAF50;
-            --node-stroke: #fff;
-            --link-color: #999;
-            --node-fill: #1f77b4;
-            --start-node: #2ca02c;
-            --end-node: #d62728;
-            --path-node: #ff7f0e;
-            --path-link: #ff7f0e;
-            --button-bg: #4CAF50;
-            --button-hover: #45a049;
-            --border-color: #ddd;
-        }
-
-        .dark-mode {
-            --bg-color: #121212;
-            --container-bg: #1e1e1e;
-            --text-color: #f0f0f0;
-            --controls-bg: #2d2d2d;
-            --result-bg: #1e3b1e;
-            --result-border: #3a7d3a;
-            --node-stroke: #333;
-            --link-color: #666;
-            --node-fill: #3a5f8a;
-            --start-node: #4caf50;
-            --end-node: #f44336;
-            --path-node: #ff9800;
-            --path-link: #ff9800;
-            --button-bg: #388e3c;
-            --button-hover: #2e7d32;
-            --border-color: #444;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: var(--container-bg);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: background-color 0.3s;
-        }
-
-        h1 {
-            color: var(--text-color);
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .theme-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 30px;
-        }
-
-        .theme-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 30px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #4CAF50;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(30px);
-        }
-
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: var(--controls-bg);
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            min-width: 200px;
-        }
-
-        label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        select, button, input[type="number"] {
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            background-color: var(--container-bg);
-            color: var(--text-color);
-        }
-
-        button {
-            background-color: var(--button-bg);
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: var(--button-hover);
-        }
-
-        #graph-container {
-            width: 100%;
-            height: 500px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            margin-top: 20px;
-            background-color: var(--container-bg);
-            transition: border-color 0.3s, background-color 0.3s;
-        }
-
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: var(--result-bg);
-            border-radius: 5px;
-            border-left: 5px solid var(--result-border);
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        .node {
-            stroke: var(--node-stroke);
-            stroke-width: 1.5px;
-        }
-
-        .link {
-            stroke: var(--link-color);
-            stroke-opacity: 0.6;
-        }
-
-        .node-text {
-            font-size: 12px;
-            font-weight: bold;
-            fill: white;
-        }
-
-        .path-node {
-            stroke: var(--path-node);
-            stroke-width: 2px;
-        }
-
-        .path-link {
-            stroke: var(--path-link);
-            stroke-width: 3px;
-            stroke-opacity: 1;
-        }
-    </style>
+    <title>Visualizador de Buscas em Grafos Animado</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Visualizador de Buscas em Grafos</h1>
-            <label class="theme-switch">
-                <input type="checkbox" id="theme-toggle">
-                <span class="slider"></span>
-            </label>
+    <div class="main-container">
+        <!-- Painel de controles à esquerda -->
+        <div class="controls-panel">
+            <div class="header">
+                <h1>Visualizador de Buscas em Grafos</h1>
+                <label class="theme-switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="start-node">Nó de Origem (X):</label>
+                    <select id="start-node">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                        <option value="H">H</option>
+                        <option value="I">I</option>
+                        <option value="J">J</option>
+                        <option value="K">K</option>
+                        <option value="L">L</option>
+                        <option value="M">M</option>
+                        <option value="N">N</option>
+                        <option value="O">O</option>
+                        <option value="P">P</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="end-node">Nó de Destino (Y):</label>
+                    <select id="end-node">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                        <option value="H">H</option>
+                        <option value="I">I</option>
+                        <option value="J">J</option>
+                        <option value="K">K</option>
+                        <option value="L">L</option>
+                        <option value="M">M</option>
+                        <option value="N">N</option>
+                        <option value="O">O</option>
+                        <option value="P">P</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="algorithm">Algoritmo de Busca:</label>
+                    <select id="algorithm">
+                        <option value="bfs">Busca em Largura (BFS)</option>
+                        <option value="dfs">Busca em Profundidade (DFS)</option>
+                        <option value="dls">Busca em Profundidade Limitada</option>
+                        <option value="ids">Busca em Aprofundamento Iterativo</option>
+                        <option value="bidirectional">Busca Bidirecional</option>
+                    </select>
+                </div>
+                
+                <div class="control-group" id="limit-control" style="display: none;">
+                    <label for="limit">Limite de Profundidade (Z):</label>
+                    <input type="number" id="limit" min="1" max="10" value="3">
+                </div>
+                
+                <div class="controls-container">
+                    <button id="search-btn">Executar Busca</button>
+                    <div class="speed-control">
+                        <label for="speed">Velocidade:</label>
+                        <select id="speed">
+                            <option value="500">Lenta</option>
+                            <option value="300" selected>Normal</option>
+                            <option value="100">Rápida</option>
+                            <option value="50">Muito Rápida</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--start-node);"></div>
+                        <span>Nó Inicial</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--end-node);"></div>
+                        <span>Nó Final</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--visited-node);"></div>
+                        <span>Visitado</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--frontier-node);"></div>
+                        <span>Fronteira</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--path-node);"></div>
+                        <span>Caminho</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result" id="result">
+                <h3>Instruções</h3>
+                <p>Selecione os nós e o algoritmo, então clique em "Executar Busca"</p>
+            </div>
         </div>
         
-        <div class="controls">
-            <!-- Os controles permanecem os mesmos -->
-            <div class="control-group">
-                <label for="start-node">Nó de Origem (X):</label>
-                <select id="start-node">
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                </select>
-            </div>
-            
-            <div class="control-group">
-                <label for="end-node">Nó de Destino (Y):</label>
-                <select id="end-node">
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                </select>
-            </div>
-            
-            <div class="control-group">
-                <label for="algorithm">Algoritmo de Busca:</label>
-                <select id="algorithm">
-                    <option value="bfs">Busca em Largura (BFS)</option>
-                    <option value="dfs">Busca em Profundidade (DFS)</option>
-                    <option value="dls">Busca em Profundidade Limitada</option>
-                    <option value="ids">Busca em Aprofundamento Iterativo</option>
-                    <option value="bidirectional">Busca Bidirecional</option>
-                </select>
-            </div>
-            
-            <div class="control-group" id="limit-control" style="display: none;">
-                <label for="limit">Limite de Profundidade (Z):</label>
-                <input type="number" id="limit" min="1" max="10" value="3">
-            </div>
-            
-            <div class="control-group">
-                <button id="search-btn">Executar Busca</button>
-            </div>
-        </div>
-        
-        <div id="graph-container"></div>
-        
-        <div class="result" id="result">
-            <p>Selecione os nós e o algoritmo, então clique em "Executar Busca"</p>
+        <!-- Painel do grafo à direita -->
+        <div class="graph-panel">
+            <div id="graph-container"></div>
         </div>
     </div>
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script>
-        // Grafo pré-definido
-        const grafo = {
-            nodes: [
-                { id: "A", x: 200, y: 100 },
-                { id: "B", x: 100, y: 200 },
-                { id: "C", x: 300, y: 200 },
-                { id: "D", x: 100, y: 300 },
-                { id: "E", x: 300, y: 300 },
-                { id: "F", x: 200, y: 400 }
-            ],
-            links: [
-                { source: "A", target: "B" },
-                { source: "A", target: "C" },
-                { source: "B", target: "D" },
-                { source: "C", target: "E" },
-                { source: "D", target: "E" },
-                { source: "D", target: "F" },
-                { source: "E", target: "F" }
-            ]
-        };
+    <script src="js/grafo.js"></script>
+    <script src="js/algoritmo.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/darkMode.js"></script>
 
-        // Inicializa a visualização do grafo
-        const width = document.getElementById('graph-container').clientWidth;
-        const height = 500;
-        
-        const svg = d3.select("#graph-container")
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height);
-        
-        // Desenha o grafo
-        function drawGraph(pathNodes = [], pathLinks = []) {
-            svg.selectAll("*").remove();
-            
-            // Desenha as arestas
-            const links = svg.selectAll(".link")
-                .data(grafo.links)
-                .enter().append("line")
-                .attr("class", d => {
-                    const isInPath = pathLinks.some(link => 
-                        (link.source === d.source && link.target === d.target) ||
-                        (link.source === d.target && link.target === d.source)
-                    );
-                    return isInPath ? "link path-link" : "link";
-                });
-            
-            // Desenha os nós
-            const nodes = svg.selectAll(".node")
-                .data(grafo.nodes)
-                .enter().append("circle")
-                .attr("class", d => pathNodes.includes(d.id) ? "node path-node" : "node")
-                .attr("r", 15)
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
-                .attr("fill", d => {
-                    if (d.id === document.getElementById("start-node").value) return "#2ca02c";
-                    if (d.id === document.getElementById("end-node").value) return "#d62728";
-                    return pathNodes.includes(d.id) ? "#ff7f0e" : "#1f77b4";
-                });
-            
-            // Adiciona rótulos aos nós
-            svg.selectAll(".node-text")
-                .data(grafo.nodes)
-                .enter().append("text")
-                .attr("class", "node-text")
-                .attr("x", d => d.x)
-                .attr("y", d => d.y)
-                .attr("text-anchor", "middle")
-                .attr("dy", ".35em")
-                .attr("fill", "white")
-                .text(d => d.id);
-        }
-        
-        // Mostra/oculta o controle de limite conforme o algoritmo selecionado
-        document.getElementById("algorithm").addEventListener("change", function() {
-            const limitControl = document.getElementById("limit-control");
-            if (this.value === "dls" || this.value === "ids") {
-                limitControl.style.display = "flex";
-            } else {
-                limitControl.style.display = "none";
-            }
-        });
-        
-        // Implementações dos algoritmos de busca
-        function obterVizinhos(node) {
-            return grafo.links
-                .filter(link => link.source === node || link.target === node)
-                .map(link => link.source === node ? link.target : link.source);
-        }
-        
-        function buscaEmLargura(inicio, objetivo) {
-            const fila = [[inicio]];
-            const visitados = new Set([inicio]);
-            
-            while (fila.length > 0) {
-                const caminho = fila.shift();
-                const no = caminho[caminho.length - 1];
-                
-                if (no === objetivo) {
-                    return caminho;
-                }
-                
-                for (const vizinho of obterVizinhos(no)) {
-                    if (!visitados.has(vizinho)) {
-                        visitados.add(vizinho);
-                        fila.push([...caminho, vizinho]);
-                    }
-                }
-            }
-            
-            return null;
-        }
-        
-        function buscaEmProfundidade(inicio, objetivo) {
-            const pilha = [[inicio]];
-            const visitados = new Set([inicio]);
-            
-            while (pilha.length > 0) {
-                const caminho = pilha.pop();
-                const no = caminho[caminho.length - 1];
-                
-                if (no === objetivo) {
-                    return caminho;
-                }
-                
-                for (const vizinho of obterVizinhos(no)) {
-                    if (!visitados.has(vizinho)) {
-                        visitados.add(vizinho);
-                        pilha.push([...caminho, vizinho]);
-                    }
-                }
-            }
-            
-            return null;
-        }
-        
-        function buscaProfundidadeLimitada(noAtual, objetivo, limite, visitados = new Set(), caminho = []) {
-            if (noAtual === objetivo) {
-                return [...caminho, noAtual];
-            }
-            
-            if (limite <= 0) {
-                return null;
-            }
-            
-            visitados.add(noAtual);
-            const novoCaminho = [...caminho, noAtual];
-            
-            for (const vizinho of obterVizinhos(noAtual)) {
-                if (!visitados.has(vizinho)) {
-                    const resultado = buscaProfundidadeLimitada(
-                        vizinho, objetivo, limite - 1, new Set(visitados), novoCaminho
-                    );
-                    if (resultado) {
-                        return resultado;
-                    }
-                }
-            }
-            
-            return null;
-        }
-        
-        function buscaAprofundamentoIterativo(inicio, objetivo, profundidadeMaxima) {
-            for (let profundidade = 1; profundidade <= profundidadeMaxima; profundidade++) {
-                const resultado = buscaProfundidadeLimitada(
-                    inicio, objetivo, profundidade, new Set(), []
-                );
-                if (resultado) {
-                    return resultado;
-                }
-            }
-            return null;
-        }
-        
-        function buscaBidirecional(inicio, objetivo) {
-            const filaInicio = [[inicio]];
-            const visitadosInicio = new Set([inicio]);
-            
-            const filaObjetivo = [[objetivo]];
-            const visitadosObjetivo = new Set([objetivo]);
-            
-            while (filaInicio.length > 0 && filaObjetivo.length > 0) {
-                // Expande a busca a partir do início
-                const caminhoInicio = filaInicio.shift();
-                const noInicio = caminhoInicio[caminhoInicio.length - 1];
-                
-                if (visitadosObjetivo.has(noInicio)) {
-                    const caminhoObjetivo = encontrarCaminhoParaNo(filaObjetivo, noInicio);
-                    return [...caminhoInicio, ...caminhoObjetivo.reverse().slice(1)];
-                }
-                
-                for (const vizinho of obterVizinhos(noInicio)) {
-                    if (!visitadosInicio.has(vizinho)) {
-                        visitadosInicio.add(vizinho);
-                        filaInicio.push([...caminhoInicio, vizinho]);
-                    }
-                }
-                
-                // Expande a busca a partir do objetivo
-                const caminhoObjetivo = filaObjetivo.shift();
-                const noObjetivo = caminhoObjetivo[caminhoObjetivo.length - 1];
-                
-                if (visitadosInicio.has(noObjetivo)) {
-                    const caminhoInicio = encontrarCaminhoParaNo(filaInicio, noObjetivo);
-                    return [...caminhoInicio, ...caminhoObjetivo.reverse().slice(1)];
-                }
-                
-                for (const vizinho of obterVizinhos(noObjetivo)) {
-                    if (!visitadosObjetivo.has(vizinho)) {
-                        visitadosObjetivo.add(vizinho);
-                        filaObjetivo.push([...caminhoObjetivo, vizinho]);
-                    }
-                }
-            }
-            
-            return null;
-        }
-        
-        function encontrarCaminhoParaNo(fila, no) {
-            for (const caminho of fila) {
-                if (caminho[caminho.length - 1] === no) {
-                    return caminho;
-                }
-            }
-            return null;
-        }
-        
-        // Executa a busca quando o botão é clicado
-        document.getElementById("search-btn").addEventListener("click", function() {
-            const inicio = document.getElementById("start-node").value;
-            const objetivo = document.getElementById("end-node").value;
-            const algoritmo = document.getElementById("algorithm").value;
-            const limite = parseInt(document.getElementById("limit").value) || 3;
-            
-            let caminho = null;
-            let nomeAlgoritmo = "";
-            
-            switch (algoritmo) {
-                case "bfs":
-                    caminho = buscaEmLargura(inicio, objetivo);
-                    nomeAlgoritmo = "Busca em Largura (BFS)";
-                    break;
-                case "dfs":
-                    caminho = buscaEmProfundidade(inicio, objetivo);
-                    nomeAlgoritmo = "Busca em Profundidade (DFS)";
-                    break;
-                case "dls":
-                    caminho = buscaProfundidadeLimitada(inicio, objetivo, limite);
-                    nomeAlgoritmo = `Busca em Profundidade Limitada (limite=${limite})`;
-                    break;
-                case "ids":
-                    caminho = buscaAprofundamentoIterativo(inicio, objetivo, limite);
-                    nomeAlgoritmo = `Busca em Aprofundamento Iterativo (profMax=${limite})`;
-                    break;
-                case "bidirectional":
-                    caminho = buscaBidirecional(inicio, objetivo);
-                    nomeAlgoritmo = "Busca Bidirecional";
-                    break;
-            }
-            
-            // Atualiza o resultado
-            const resultDiv = document.getElementById("result");
-            if (caminho) {
-                resultDiv.innerHTML = `
-                    <h3>${nomeAlgoritmo}</h3>
-                    <p><strong>Caminho encontrado:</strong> ${caminho.join(" → ")}</p>
-                    <p><strong>Comprimento do caminho:</strong> ${caminho.length - 1}</p>
-                `;
-                
-                // Extrai os links do caminho para destacar
-                const pathLinks = [];
-                for (let i = 0; i < caminho.length - 1; i++) {
-                    pathLinks.push({
-                        source: caminho[i],
-                        target: caminho[i+1]
-                    });
-                }
-                
-                // Redesenha o grafo com o caminho destacado
-                drawGraph(caminho, pathLinks);
-            } else {
-                resultDiv.innerHTML = `
-                    <h3>${nomeAlgoritmo}</h3>
-                    <p><strong>Caminho não encontrado</strong></p>
-                `;
-                drawGraph();
-            }
-        });
-        
-        // Desenha o grafo inicial
-        drawGraph();
-
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('change', function() {
-            document.body.classList.toggle('dark-mode', this.checked);
-            
-            // Redesenha o grafo para aplicar as novas cores
-            const resultDiv = document.getElementById("result");
-            if (resultDiv.innerHTML.includes("Caminho encontrado")) {
-                document.getElementById("search-btn").click();
-            } else {
-                drawGraph();
-            }
-        });
-
-        // Verifica preferência do sistema
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            themeToggle.checked = true;
-            document.body.classList.add('dark-mode');
-        }
-
-        // Monitora mudanças no sistema
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            themeToggle.checked = e.matches;
-            document.body.classList.toggle('dark-mode', e.matches);
-        });
-    </script>
 </body>
 </html>
