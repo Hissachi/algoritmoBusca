@@ -1,0 +1,78 @@
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .controls-panel, .graph-panel {
+        width: 100%;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    #graph-container {
+        height: auto;
+    }
+
+    .controls {
+        gap: 10px;
+    }
+
+    .control-group {
+        margin-bottom: 10px;
+    }
+
+    select, input[type="number"], button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    .legend {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .legend-item {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+
+    .panel-active {
+        display: block !important;
+    }
+
+    .mobile-only {
+        display: block;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 100;
+        padding: 12px 15px;
+        border-radius: 50%;
+        background: var(--button-bg);
+        color: white;
+        border: none;
+        box-shadow: 0 4px 8px var(--shadow-color);
+    }
+
+    .desktop-only {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+
+    .graph-panel {
+        display: block !important;
+    }
+}

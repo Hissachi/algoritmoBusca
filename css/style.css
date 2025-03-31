@@ -1,4 +1,7 @@
-@import url(darkMode.css);
+@import url("darkMode.css");
+@import url("button.css");
+@import url("responsividade.css");
+@import url("scrollbar.css");
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -142,33 +145,6 @@ select:focus, input:focus {
     outline: none;
     border-color: var(--button-bg);
     box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
-}
-
-button {
-    padding: 12px 20px;
-    border-radius: 8px;
-    background: var(--button-bg);
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    margin-top: 10px;
-    box-shadow: 0 4px 6px var(--shadow-color);
-    text-transform: uppercase;
-    font-size: 14px;
-}
-
-button:hover {
-    background: var(--button-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px var(--shadow-color);
-}
-
-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 #graph-container {
@@ -317,101 +293,4 @@ button:active {
     -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--controls-bg);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--button-bg);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--button-hover);
-}
-
-@media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    .controls-panel, .graph-panel {
-        width: 100%;
-        padding: 15px;
-        border-radius: 12px;
-    }
-
-    #graph-container {
-        height: auto;
-    }
-
-    .controls {
-        gap: 10px;
-    }
-
-    .control-group {
-        margin-bottom: 10px;
-    }
-
-    select, input[type="number"], button {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    h1 {
-        font-size: 1.4rem;
-        margin-bottom: 15px;
-    }
-
-    .legend {
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .legend-item {
-        font-size: 11px;
-        padding: 3px 6px;
-    }
-
-    .panel-active {
-        display: block !important;
-    }
-
-    .mobile-only {
-        display: block;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 100;
-        padding: 12px 15px;
-        border-radius: 50%;
-        background: var(--button-bg);
-        color: white;
-        border: none;
-        box-shadow: 0 4px 8px var(--shadow-color);
-    }
-
-    .desktop-only {
-        display: none;
-    }
-}
-
-@media (min-width: 769px) {
-    .mobile-only {
-        display: none !important;
-    }
-
-    .graph-panel {
-        display: block !important;
-    }
 }
