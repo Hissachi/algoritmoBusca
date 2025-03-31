@@ -2,7 +2,6 @@ const readline = require('readline');
 
 class Grafo {
     constructor() {
-        // Grafo pré-definido (mesmo do exemplo anterior)
         this.listaAdjacencia = new Map([
             ['A', ['B', 'C']],
             ['B', ['A', 'D']],
@@ -25,7 +24,6 @@ class Grafo {
     }
 }
 
-// Implementações dos algoritmos de busca (manter as mesmas do código anterior)
 function buscaEmLargura(grafo, inicio, objetivo) {
     const fila = [[inicio]];
     const visitados = new Set();
@@ -172,7 +170,6 @@ function combinarCaminhos(caminhoInicio, caminhoObjetivo) {
     return [...caminhoInicio, ...caminhoObjetivoInvertido];
 }
 
-// Função principal
 async function main() {
     const rl = readline.createInterface({
         input: process.stdin,
@@ -182,7 +179,6 @@ async function main() {
     const grafo = new Grafo();
     let opcao = '';
 
-    // Função para perguntar ao usuário
     const perguntar = (pergunta) => new Promise(resolve => rl.question(pergunta, resolve));
 
     console.log("Sistema de Buscas em Grafos com Grafo Pré-Definido");
@@ -208,28 +204,23 @@ async function main() {
                 }
 
                 console.log("\n=== RESULTADOS DAS BUSCAS ===");
-                
-                // Busca em Largura
+
                 let resultado = buscaEmLargura(grafo, origem, destino);
                 console.log("\nBusca em Largura:");
                 console.log(resultado ? `Caminho: ${resultado.join(" → ")}` : "Caminho não encontrado");
 
-                // Busca em Profundidade
                 resultado = buscaEmProfundidade(grafo, origem, destino);
                 console.log("\nBusca em Profundidade:");
                 console.log(resultado ? `Caminho: ${resultado.join(" → ")}` : "Caminho não encontrado");
 
-                // Busca em Profundidade Limitada
                 resultado = buscaProfundidadeLimitada(grafo, origem, destino, parseInt(limite));
                 console.log(`\nBusca em Profundidade Limitada (limite=${limite}):`);
                 console.log(resultado ? `Caminho: ${resultado.join(" → ")}` : "Caminho não encontrado");
 
-                // Busca em Aprofundamento Iterativo
                 resultado = buscaAprofundamentoIterativo(grafo, origem, destino, parseInt(limite));
                 console.log(`\nBusca em Aprofundamento Iterativo (profMax=${limite}):`);
                 console.log(resultado ? `Caminho: ${resultado.join(" → ")}` : "Caminho não encontrado");
 
-                // Busca Bidirecional
                 resultado = buscaBidirecional(grafo, origem, destino);
                 console.log("\nBusca Bidirecional:");
                 console.log(resultado ? `Caminho: ${resultado.join(" → ")}` : "Caminho não encontrado");
@@ -247,5 +238,4 @@ async function main() {
     rl.close();
 }
 
-// Iniciar o programa
 main();

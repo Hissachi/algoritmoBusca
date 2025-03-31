@@ -1,4 +1,3 @@
-// Algoritmo de Busca em Largura
 function buscaEmLargura(inicio, objetivo) {
     const fila = [[inicio]];
     const visitados = new Set([inicio]);
@@ -21,7 +20,6 @@ function buscaEmLargura(inicio, objetivo) {
     return null;
 }
 
-// Algoritmo de Busca em Profundidade
 function buscaEmProfundidade(inicio, objetivo) {
     let melhorCaminho = null;
     const visitados = new Set();
@@ -30,13 +28,11 @@ function buscaEmProfundidade(inicio, objetivo) {
         visitados.add(no);
         caminhoAtual.push(no);
 
-        // Se encontrou o objetivo, verifica se é o caminho mais curto
         if (no === objetivo) {
             if (!melhorCaminho || caminhoAtual.length < melhorCaminho.length) {
-                melhorCaminho = [...caminhoAtual]; // Atualiza o melhor caminho
+                melhorCaminho = [...caminhoAtual];
             }
         } else {
-            // Explora vizinhos em ordem aleatória (depende da implementação de obterVizinhos)
             for (const vizinho of obterVizinhos(no)) {
                 if (!visitados.has(vizinho)) {
                     dfs(vizinho, caminhoAtual);
@@ -44,7 +40,6 @@ function buscaEmProfundidade(inicio, objetivo) {
             }
         }
 
-        // Backtrack: remove o nó do caminho e dos visitados
         caminhoAtual.pop();
         visitados.delete(no);
     }
@@ -53,7 +48,6 @@ function buscaEmProfundidade(inicio, objetivo) {
     return melhorCaminho;
 }
 
-// Busca em Profundidade Limitada
 function buscaProfundidadeLimitada(noAtual, objetivo, limite, caminho = [noAtual], visitados = new Set([noAtual])) {
     if (noAtual === objetivo) {
         return caminho;
@@ -77,7 +71,6 @@ function buscaProfundidadeLimitada(noAtual, objetivo, limite, caminho = [noAtual
     return null;
 }
 
-// Busca em Aprofundamento Iterativo
 function buscaAprofundamentoIterativo(inicio, objetivo, profundidadeMaxima) {
     for (let profundidade = 1; profundidade <= profundidadeMaxima; profundidade++) {
         const resultado = buscaProfundidadeLimitada(inicio, objetivo, profundidade);
@@ -88,7 +81,6 @@ function buscaAprofundamentoIterativo(inicio, objetivo, profundidadeMaxima) {
     return null;
 }
 
-// Busca Bidirecional
 function buscaBidirecional(inicio, objetivo) {
     const filaInicio = [[inicio]];
     const visitadosInicio = new Set([inicio]);
@@ -96,7 +88,6 @@ function buscaBidirecional(inicio, objetivo) {
     const visitadosObjetivo = new Set([objetivo]);
     
     while (filaInicio.length > 0 && filaObjetivo.length > 0) {
-        // Busca a partir do início
         const caminhoInicio = filaInicio.shift();
         const noInicio = caminhoInicio[caminhoInicio.length - 1];
         
@@ -111,8 +102,7 @@ function buscaBidirecional(inicio, objetivo) {
                 filaInicio.push([...caminhoInicio, vizinho]);
             }
         }
-        
-        // Busca a partir do objetivo
+
         const caminhoObjetivo = filaObjetivo.shift();
         const noObjetivo = caminhoObjetivo[caminhoObjetivo.length - 1];
         

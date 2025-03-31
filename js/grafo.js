@@ -38,8 +38,6 @@ const grafo = {
         { source: "M", target: "P" },
         { source: "N", target: "P" },
         { source: "O", target: "P" },
-        
-        // Conexões aleatórias adicionais (rotas alternativas)
         { source: "A", target: "D" },
         { source: "B", target: "F" },
         { source: "C", target: "G" },

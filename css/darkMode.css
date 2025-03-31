@@ -1,0 +1,47 @@
+:root {
+    --bg-color: #f5f7fa;
+    --bg-gradient: linear-gradient(135deg, #98e3af 0%, #b6b8ba 25%, #e5f0cb 50%, #709b7d 75%, #61fb8c 100%);
+    --container-bg: rgba(255, 255, 255, 0.95);
+    --text-color: #2d3748;
+    --controls-bg: rgba(214, 231, 223, 0.9);
+    --result-bg: rgba(233, 247, 239, 0.9);
+    --result-border: #4CAF50;
+    --node-stroke: #fff;
+    --link-color: #a0aec0;
+    --node-fill: #4299e1;
+    --start-node: #48bb78;
+    --end-node: #f56565;
+    --path-node: #ed8936;
+    --path-link: #ed8936;
+    --button-bg: #4CAF50;
+    --button-hover: #45a049;
+    --border-color: #a3a0a0;
+    --visited-node: #9f7aea;
+    --frontier-node: #f6e05e;
+    --exploring-link: #4299e1;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode {
+    --bg-color: #1a202c;
+    --bg-gradient: linear-gradient(135deg, #265e53 0%, #282a2c 25%, #6fdca5 50%, #5f605f 75%, #b5dac0 100%);
+    --container-bg: rgba(30, 30, 30, 0.95);
+    --text-color: #f0f0f0;
+    --controls-bg: rgba(45, 45, 45, 0.9);
+    --result-bg: rgba(30, 59, 30, 0.9);
+    --result-border: #3a7d3a;
+    --node-stroke: #2d3748;
+    --link-color: #4a5568;
+    --node-fill: #3a5f8a;
+    --start-node: #48bb78;
+    --end-node: #f56565;
+    --path-node: #ed8936;
+    --path-link: #ed8936;
+    --button-bg: #388e3c;
+    --button-hover: #2e7d32;
+    --border-color: #4a5568;
+    --visited-node: #9f7aea;
+    --frontier-node: #f6e05e;
+    --exploring-link: #63b3ed;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}

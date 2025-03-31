@@ -1,59 +1,11 @@
-:root {
-    /* Light Mode Colors */
-    --bg-color: #f5f7fa; /* Fallback solid color */
-    --bg-gradient: linear-gradient(135deg, #98e3af 0%, #b6b8ba 25%, #e5f0cb 50%, #709b7d 75%, #61fb8c 100%);
-    --container-bg: rgba(255, 255, 255, 0.95);
-    --text-color: #2d3748;
-    --controls-bg: rgba(240, 240, 240, 0.9);
-    --result-bg: rgba(233, 247, 239, 0.9);
-    --result-border: #4CAF50;
-    --node-stroke: #fff;
-    --link-color: #a0aec0;
-    --node-fill: #4299e1;
-    --start-node: #48bb78;
-    --end-node: #f56565;
-    --path-node: #ed8936;
-    --path-link: #ed8936;
-    --button-bg: #4CAF50;
-    --button-hover: #45a049;
-    --border-color: #e2e8f0;
-    --visited-node: #9f7aea;
-    --frontier-node: #f6e05e;
-    --exploring-link: #4299e1;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-}
-
-.dark-mode {
-    /* Dark Mode Colors */
-    --bg-color: #1a202c; /* Fallback solid color */
-    --bg-gradient: linear-gradient(135deg, #265e53 0%, #282a2c 25%, #6fdca5 50%, #5f605f 75%, #b5dac0 100%);
-    --container-bg: rgba(30, 30, 30, 0.95);
-    --text-color: #f0f0f0;
-    --controls-bg: rgba(45, 45, 45, 0.9);
-    --result-bg: rgba(30, 59, 30, 0.9);
-    --result-border: #3a7d3a;
-    --node-stroke: #2d3748;
-    --link-color: #4a5568;
-    --node-fill: #3a5f8a;
-    --start-node: #48bb78;
-    --end-node: #f56565;
-    --path-node: #ed8936;
-    --path-link: #ed8936;
-    --button-bg: #388e3c;
-    --button-hover: #2e7d32;
-    --border-color: #4a5568;
-    --visited-node: #9f7aea;
-    --frontier-node: #f6e05e;
-    --exploring-link: #63b3ed;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-}
+@import url(darkMode.css);
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
     background: var(--bg-gradient);
-    background-color: var(--bg-color); /* Fallback */
+    background-color: var(--bg-color);
     color: var(--text-color);
     transition: all 0.5s ease;
     display: flex;
@@ -69,7 +21,7 @@ body {
 }
 
 .controls-panel {
-    width: 900px;
+    width: 700px;
     background: var(--container-bg);
     padding: 20px;
     border-radius: 16px;
@@ -98,7 +50,6 @@ h1 {
     background: linear-gradient(135deg, var(--button-bg));
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
     text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -360,7 +311,6 @@ button:active {
     animation: pulse 1s infinite;
 }
 
-/* Efeito de vidro para containers */
 .glass-effect {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -369,7 +319,6 @@ button:active {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Scrollbar personalizada */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -388,7 +337,6 @@ button:active {
     background: var(--button-hover);
 }
 
-/* Novas regras para mobile */
 @media (max-width: 768px) {
     .main-container {
         flex-direction: column;
@@ -435,12 +383,10 @@ button:active {
         padding: 3px 6px;
     }
 
-    /* Mostra o painel ativo */
     .panel-active {
         display: block !important;
     }
 
-    /* Botão de alternância */
     .mobile-only {
         display: block;
         position: fixed;
@@ -460,7 +406,6 @@ button:active {
     }
 }
 
-/* Estilos para desktop */
 @media (min-width: 769px) {
     .mobile-only {
         display: none !important;

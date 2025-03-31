@@ -1,8 +1,15 @@
-// Desenha o grafo com hierarquia de cores
+let animationSteps = [];
+let currentStep = 0;
+let animationInterval;
+let visitedNodes = new Set();
+let frontierNodes = new Set();
+let exploringLinks = new Set();
+let finalPathNodes = new Set();
+let finalPathLinks = new Set();
+
 function drawGraph() {
     svg.selectAll("*").remove();
     
-    // Desenha as arestas com prioridade para o caminho final
     svg.selectAll(".link")
         .data(grafo.links)
         .enter().append("line")
@@ -17,38 +24,28 @@ function drawGraph() {
         .attr("x2", d => grafo.nodes.find(n => n.id === d.target).x)
         .attr("y2", d => grafo.nodes.find(n => n.id === d.target).y);
     
-    // Desenha os nós com hierarquia de cores clara
     svg.selectAll(".node")
         .data(grafo.nodes)
         .enter().append("circle")
-        .attr("class", "node") // Classe base para todos os nós
+        .attr("class", "node")
         .attr("r", 18)
         .attr("cx", d => d.x)
         .attr("cy", d => d.y)
         .attr("fill", d => {
-            // Hierarquia de cores:
-            // 1. Nó final (vermelho) - máxima prioridade
             if (d.id === document.getElementById("end-node").value) return "var(--end-node)";
-            // 2. Nó inicial (verde) - segunda prioridade
             if (d.id === document.getElementById("start-node").value) return "var(--start-node)";
-            // 3. Caminho final (laranja)
             if (finalPathNodes.has(d.id)) return "var(--path-node)";
-            // 4. Nós visitados (roxo)
             if (visitedNodes.has(d.id)) return "var(--visited-node)";
-            // 5. Fronteira (amarelo)
             if (frontierNodes.has(d.id)) return "var(--frontier-node)";
-            // 6. Nó normal (azul)
             return "var(--node-fill)";
         })
         .attr("stroke", d => {
-            // Aplica a mesma lógica para a borda
             if (d.id === document.getElementById("end-node").value) return "var(--end-node)";
             if (d.id === document.getElementById("start-node").value) return "var(--start-node)";
             if (finalPathNodes.has(d.id)) return "var(--path-node)";
             return "var(--node-stroke)";
         });
     
-    // Rótulos dos nós
     svg.selectAll(".node-text")
         .data(grafo.nodes)
         .enter().append("text")
@@ -60,7 +57,6 @@ function drawGraph() {
         .text(d => d.id);
 }
 
-// Geração de passos de animação - Versão unificada para todos os algoritmos
 function gerarPassosAnimacao(inicio, objetivo, algoritmo, limite = 3) {
     const passos = [];
     visitedNodes = new Set();
@@ -69,7 +65,6 @@ function gerarPassosAnimacao(inicio, objetivo, algoritmo, limite = 3) {
     finalPathNodes = new Set();
     finalPathLinks = new Set();
 
-    // Passo inicial: mostrar apenas o nó inicial na fronteira
     passos.push({
         type: "initialize",
         node: inicio,
@@ -95,7 +90,6 @@ function gerarPassosAnimacao(inicio, objetivo, algoritmo, limite = 3) {
     return passos;
 }
 
-// Executa a animação passo a passo
 function executarAnimacao(passos) {
     clearInterval(animationInterval);
     currentStep = 0;
@@ -103,13 +97,11 @@ function executarAnimacao(passos) {
     
     const speed = parseInt(document.getElementById("speed").value);
     
-    // Executa o primeiro passo com um pequeno atraso adicional
     if (animationSteps.length > 0) {
         setTimeout(() => {
             executarPasso(animationSteps[0]);
             currentStep++;
             
-            // Continua com os demais passos
             animationInterval = setInterval(() => {
                 if (currentStep >= animationSteps.length) {
                     clearInterval(animationInterval);
@@ -119,11 +111,10 @@ function executarAnimacao(passos) {
                 executarPasso(animationSteps[currentStep]);
                 currentStep++;
             }, speed);
-        }, 500); // 500ms de atraso inicial
+        }, 500);
     }
 }
 
-// Executa um passo individual da animação
 function executarPasso(passo) {
     const resultDiv = document.getElementById("result");
     

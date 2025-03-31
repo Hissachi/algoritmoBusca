@@ -4,8 +4,6 @@ function handleResize() {
     drawGraph();
 }
 
-// Atualiza ao redimensionar a janela
 window.addEventListener('resize', handleResize);
 
-// Chama inicialmente
 handleResize();
