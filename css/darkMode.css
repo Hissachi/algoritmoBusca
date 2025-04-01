@@ -14,7 +14,7 @@
     --path-node: #ed8936;
     --path-link: #ed8936;
     --button-bg: #4CAF50;
-    --button-hover: #45a049;
+    --button-hover: #328f73;
     --border-color: #a3a0a0;
     --visited-node: #9f7aea;
     --frontier-node: #f6e05e;
@@ -26,6 +26,12 @@
     --bg-color: #1a202c;
     --bg-gradient: linear-gradient(135deg, #265e53 0%, #282a2c 25%, #6fdca5 50%, #5f605f 75%, #b5dac0 100%);
     --container-bg: rgba(30, 30, 30, 0.95);
+    --container-gradient: linear-gradient(
+        135deg,
+        rgba(152, 227, 175, 0.15) 0%,
+        rgba(223, 167, 167, 0.1) 50%,
+        rgba(19, 236, 113, 0.2) 100%
+    );
     --text-color: #f0f0f0;
     --controls-bg: rgba(45, 45, 45, 0.9);
     --result-bg: rgba(30, 59, 30, 0.9);
@@ -38,7 +44,7 @@
     --path-node: #ed8936;
     --path-link: #ed8936;
     --button-bg: #388e3c;
-    --button-hover: #2e7d32;
+    --button-hover: #1c6d55;
     --border-color: #4a5568;
     --visited-node: #9f7aea;
     --frontier-node: #f6e05e;
